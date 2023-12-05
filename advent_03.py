@@ -3,7 +3,6 @@ import re
 from typing import List
 
 INPUT_FILE = "inputs/03-input.txt"
-# INPUT_FILE = "inputs/03-sample-pt1.txt"
 
 
 # TODO: use regex to speed this up
@@ -32,15 +31,9 @@ def part1(input_file: str) -> int:
     with open(input_file) as f:
         lines = [line.rstrip() for line in f.readlines()]
 
-    # print(lines)
-
     non_adjacent_sum = 0
     for y in range(len(lines)):
-        line = lines[y]
-        numbers = list(re.finditer("[0-9]+", line))
-        # print(numbers)
-
-        for number in numbers:
+        for number in re.finditer("[0-9]+", lines[y]):
             if has_adjacent_symbols(lines, y, number.start(), number.end()):
                 non_adjacent_sum += int(number.group())
 
