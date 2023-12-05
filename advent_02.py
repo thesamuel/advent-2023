@@ -1,3 +1,5 @@
+# Day 2: Cube Conundrum
+
 INPUT_FILE = "inputs/02-input.txt"
 
 
