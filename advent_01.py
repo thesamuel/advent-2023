@@ -17,17 +17,30 @@ def read_digits(input_path: str, digit_regex: str) -> Iterable[int]:
 
 
 def part1(input_path: str) -> int:
-    return sum(int(start + end) for start, end in read_digits(input_path, r'[0-9]'))
+    return sum(int(start + end) for start, end in read_digits(input_path, r"[0-9]"))
 
 
 def part2(input_path: str) -> int:
-    number_words = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
+    number_words = {
+        "one": 1,
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five": 5,
+        "six": 6,
+        "seven": 7,
+        "eight": 8,
+        "nine": 9,
+    }
 
     def convert_to_int(s: str) -> int:
         return number_words.get(s) or int(s)
 
     digit_regex = "|".join(number_words) + "|[0-9]"
-    return sum(convert_to_int(start) * 10 + convert_to_int(end) for start, end in read_digits(input_path, digit_regex))
+    return sum(
+        convert_to_int(start) * 10 + convert_to_int(end)
+        for start, end in read_digits(input_path, digit_regex)
+    )
 
 
 print("Part 1:", part1(INPUT_FILE))
