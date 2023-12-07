@@ -44,22 +44,22 @@ def part2(input_file: str) -> int:
     with open(input_file) as f:
         lines = [line.rstrip() for line in f.readlines()]
 
-    symbol_coordinates_to_number = {}
+    symbol_coordinates_to_numbers = {}
     for y in range(len(lines)):
         for number in re.finditer("[0-9]+", lines[y]):
             for adjacent_symbol in get_adjacent_symbols(
                 lines, y, number.start(), number.end()
             ):
-                symbol_coordinates_to_number.setdefault(adjacent_symbol, set()).add(
-                    (y, number.start(), int(number.group()))
+                symbol_coordinates_to_numbers.setdefault(adjacent_symbol, []).append(
+                    int(number.group())
                 )
 
     gear_ratio_sum = 0
-    for _, numbers in symbol_coordinates_to_number.items():
+    for _, numbers in symbol_coordinates_to_numbers.items():
         if len(numbers) != 2:
             continue
         num1, num2 = numbers
-        gear_ratio_sum += num1[-1] * num2[-1]
+        gear_ratio_sum += num1 * num2
 
     return gear_ratio_sum
 
