@@ -29,7 +29,7 @@ def get_adjacent_symbols(
 
 def part1(input_file: str) -> int:
     with open(input_file) as f:
-        lines = [line.rstrip() for line in f.readlines()]
+        lines = [line.rstrip() for line in f]
 
     non_adjacent_sum = 0
     for y in range(len(lines)):
@@ -42,7 +42,7 @@ def part1(input_file: str) -> int:
 
 def part2(input_file: str) -> int:
     with open(input_file) as f:
-        lines = [line.rstrip() for line in f.readlines()]
+        lines = [line.rstrip() for line in f]
 
     symbol_coordinates_to_numbers = {}
     for y in range(len(lines)):
