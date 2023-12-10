@@ -1,6 +1,6 @@
 import math
-import re
 from bisect import bisect_left, bisect_right
+from typing import TextIO
 
 INPUT_FILE = "inputs/05-input.txt"
 
@@ -14,36 +14,46 @@ def find_range(a: list[tuple[int]], x, key):
     raise ValueError
 
 
+def parse_seeds(f: TextIO) -> list[int]:
+    first_line = f.readline()
+    assert first_line.startswith("seeds:")
+    return [int(seed) for seed in first_line.split(":")[1].split()]
+
+
+def parse_mappings(f: TextIO) -> list[list[tuple[int, int, int]]]:
+    mappings = []
+
+    # Read until EOF, building mappings
+    while line := f.readline():
+        line = line.rstrip()
+        if not line:
+            continue
+
+        assert "map" in line
+        # print(f"Processing mapping for {line}")
+
+        # Process mapping
+        mapping = []
+        while line := f.readline().rstrip():
+            # Note that we swap the src and dest to make it easier to understand
+            dest, src, length = [int(num) for num in line.split()]
+            mapping.append((src, dest, length))
+
+        # Sort mapping by src
+        mapping.sort(key=lambda x: x[0])
+        # print(mapping)
+
+        mappings.append(mapping)
+
+    return mappings
+
+
 def part1(input_file: str) -> int:
     with open(input_file) as f:
-        first_line = f.readline()
-        assert first_line.startswith("seeds:")
-        seeds = [int(seed) for seed in first_line.split(":")[1].split()]
+        seeds = parse_seeds(f)
         print("Seeds:", seeds)
 
-        # Read until EOF, building mappings
-        mappings = []
-        while line := f.readline():
-            line = line.rstrip()
-            if not line:
-                continue
-
-            assert "map" in line
-            print(f"Processing mapping for {line}")
-
-            # Process mapping
-            mapping = []
-            while line := f.readline().rstrip():
-                # Note that we swap the src and dest to make it easier to understand
-                dest, src, length = [int(num) for num in line.split()]
-                mapping.append((src, dest, length))
-
-            # Sort mapping by src
-            mapping.sort(key=lambda x: x[0])
-            print(mapping)
-
-            mappings.append(mapping)
-
+        mappings = parse_mappings(f)
         print("Mappings:", mappings)
 
     min_location = math.inf
