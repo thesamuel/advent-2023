@@ -91,7 +91,7 @@ def truncate_mapping(
         src_map_end = src_map_start + length
         if src_map_end > src_end:
             offset = src_map_end - src_end
-            if offset > length:
+            if offset >= length:
                 continue
             length -= offset
 
