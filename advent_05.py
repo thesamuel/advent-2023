@@ -1,5 +1,5 @@
 import math
-from bisect import bisect_left, bisect_right
+from bisect import bisect_right
 from typing import TextIO, Iterable
 
 INPUT_FILE = "inputs/05-input.txt"
